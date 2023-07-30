@@ -1,0 +1,81 @@
+version: '3'
+
+services:
+  nginx:
+    container_name: nginx
+    image: nginx
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - inception
+    build:
+      context: ./requirements/nginx
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - wordpress
+    ports:
+      - 443:443
+    restart: always
+
+  mariadb:
+    container_name:  mariadb
+    image: mariadb
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - inception
+    build:
+      context: ./requirements/mariadb
+      args:
+        DB_DATABASE: ${DB_DATABASE}
+        DB_USER: ${DB_USER}
+        DB_USER_PASSWORD: ${DB_USER_PSW}
+        DB_ROOT_PASSWORD: ${DB_ROOT_PSW}
+    env_file:
+      - .env
+    restart: always
+    
+  
+  wordpress:
+    container_name: wordpress
+    image: wordpress
+    volumes:
+      - wordpress:/var/www/html/wordpress
+    networks:
+      - inception
+    build: 
+      context: ./requirements/wordpress
+    env_file:
+      - .env
+    restart: always
+  
+networks:
+  inception:
+    driver: bridge
+    name: inception
+  
+volumes:
+  wordpress:
+    driver: local
+    name: wordpress
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/lorampon/Documents/wordpress
+  mariadb:
+    driver: local
+    name: mariadb
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/lorampon/Documents/mariadb
+      
+
+
+    
+    
+    
+
+    
