@@ -46,8 +46,8 @@ clean: down
 
 fclean: clean
 		@printf "\033[0;32mRemoves images, containers and volumes\033[0m\n"
-		sudo rm -rf /home/$(USER)/data/wordpress/*
-		sudo rm -rf /home/$(USER)/data/mariadb/*
+		sudo rm -rf /home/lorampon/data/wordpress/*
+		sudo rm -rf /home/lorampon/data/mariadb/*
 		
 prune:	fclean
 		@printf "\033[0;32mRemoves all unused images, containers and volumes\033[0m\n"

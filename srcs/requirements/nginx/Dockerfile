@@ -13,8 +13,4 @@ RUN	ln -s /etc/nginx/sites-available/lorampon.42.fr.conf /etc/nginx/sites-enable
 
 EXPOSE 443
 
-RUN apt-get install dumb-init -y
-
-ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-
 CMD ["nginx", "-g", "daemon off;"]
